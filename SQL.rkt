@@ -17,8 +17,8 @@
 (define (cria-tbl bool)
  (query-exec TABELA
              (create-table tabelaGeral
-                           #:columns [data date] [hora time] [esporte text] [num integer]
-                           #:constraints (primary-key data hora))))
+                           #:columns [data date] [hora time] [esporte text] [quadra text] [num integer]
+                           #:constraints (primary-key data hora quadra))))
 
 ;se a tabela ainda nao existe na db, entao ela e criada
 (define checa-cria
@@ -27,15 +27,26 @@
      (cria-tbl #t)))
 
 ;metodo que insere um novo jogo na tabela geral de horarios e jogos
-(define (insere-novo-jogo e d h)
+(define (insere-novo-jogo e d h q)
     (query-exec TABELA
-             (gera-string-sql e d h)))
+             (gera-string-sql e d h q)))
 
 ;gera a string para inserir sql
-(define (gera-string-sql e d h)
- (string-append "INSERT INTO tabelaGeral (data, hora, esporte, num) VALUES (" (string-append "'" d "', ")
+(define (gera-string-sql e d h q)
+ (string-append "INSERT INTO tabelaGeral (data, hora, esporte,quadra, num) VALUES (" (string-append "'" d "', ")
                 (string-append "'" h "', ")
-                (string-append "'" e "', ") (string-append "1);")))
+                (string-append "'" e "', ")(string-append "'" q "', ") (string-append "1)")))
+
+;update em um jogo, ou seja, soma um jogador 
+(define (update-tabela-soma-jogador d h q)
+  (query-exec TABELA (string-append "UPDATE tabelaGeral SET num = " (number->string(add1 (query-num-jogadores d h q)))
+                                                   " WHERE  data = '" (string-append d "' and hora = '" h
+                                                                                     "' and quadra = '" q "'"))))
+
+;retorna o numero de jogadores presentes no jogo que foi requisitado vaga
+(define (query-num-jogadores d h q)
+  (car(query-list TABELA (string-append "select num from tabelaGeral where data = '"
+                                   (string-append d "' and hora = '" h "' and quadra = '" q "'")))))
 
 ;metodo que retorna a tabela inteira
 (define (lista-tudo n)
