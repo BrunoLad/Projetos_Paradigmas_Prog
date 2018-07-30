@@ -8,6 +8,7 @@
 ;usar com (require rackunit "SQL.rkt"), os programas devem estar na mesma pasta
 (provide insere-novo-jogo)
 (provide lista-tudo)
+(provide update-tabela-soma-jogador)
 
 ;conecta no db, deve se existir uma db com o nome horarios na pasta raiz do servidor, ou seja, onde esse programa esta rodando
 (define TABELA
@@ -21,9 +22,9 @@
                            #:constraints (primary-key data hora quadra))))
 
 ;se a tabela ainda nao existe na db, entao ela e criada
-(define checa-cria
+(define (checa-cria)
   (if(table-exists? TABELA "tabelaGeral")
-     (printf "tabela ja criada")
+     (display #t)
      (cria-tbl #t)))
 
 ;metodo que insere um novo jogo na tabela geral de horarios e jogos
@@ -49,7 +50,7 @@
                                    (string-append d "' and hora = '" h "' and quadra = '" q "'")))))
 
 ;metodo que retorna a tabela inteira
-(define (lista-tudo n)
+(define (lista-tudo)
   (query-rows TABELA
               "select * from tabelaGeral"))
 
