@@ -7,8 +7,9 @@
 ;exportando metodos para a manipulacao da tabela em outro programa rkt
 ;usar com (require rackunit "SQL.rkt"), os programas devem estar na mesma pasta
 (provide insere-novo-jogo)
-(provide lista-tudo)
+;(provide lista-tudo)
 (provide update-tabela-soma-jogador)
+(provide vectorList->list)
 
 ;conecta no db, deve se existir uma db com o nome horarios na pasta raiz do servidor, ou seja, onde esse programa esta rodando
 (define TABELA
@@ -54,4 +55,11 @@
   (query-rows TABELA
               "select * from tabelaGeral"))
 
-
+;retorna lista com os elementos de uma coluna, na ordem do sort
+  (define (vectorList->list)
+    (define (vectorList->list2 vec lst)
+      (if (null? vec)
+          lst
+          (vectorList->list2 (cdr vec) (cons (vector->list (car vec)) lst))))
+    (vectorList->list2 (lista-tudo) null))
+    
