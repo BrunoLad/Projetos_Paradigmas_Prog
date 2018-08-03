@@ -1,6 +1,7 @@
 #lang web-server/insta
 
 (require rackunit "SQL.rkt")
+(require html-template)
 ;struct padrao de uma linha da tabela
 (struct table (data hora esporte local jogadores))
 
@@ -35,11 +36,28 @@
 ;gera o html da tabela
 (define (gera-tabela-html tbl)
   `(div ((class "table"))
-        (table(,@(vai-linha tbl)))))
+        (table(,(vai-linha tbl null)))))
+
+;um teste malsucedido
+(define (gera-tabela-html2 tbl)
+  (html-template
+   (table (@ (border "1"))
+         (tr (th "data") (th "hora") (th "esporte") (th "local") (th "jogadores"))
+         (%write
+          (for-each (lambda (tbody)
+                      (html-template
+                       (tr (td (% (table-data tbody)))
+                           (td (% (table-hora tbody)))
+                           (td (% (table-esporte tbody)))
+                           (td (% (table-local tbody)))
+                           (td (% (table-jogadores tbody))))))
+                    (cdr tbl))))))
 
 ;brincando com fogo
-(define (vai-linha tbl)
-  (and (null? tbl) `(tr(,@(th-html (car tbl)))) (vai-linha (cdr tbl)))))
+(define (vai-linha tbl linhas)
+  (if (null? tbl)
+      linhas
+  (vai-linha (cdr tbl) (cons `(tr(,(th-html (car tbl)))) linhas))))
         
 ;start no web-server       
 (define (start request)
@@ -51,3 +69,6 @@
    `(html (head (title "Mural da quadra"))
           (body (h1 "Mural da quadra")
                 ,(gera-tabela-html tbl)))))
+
+
+  
