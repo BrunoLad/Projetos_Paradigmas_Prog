@@ -1,7 +1,8 @@
 #lang racket
 
 (require scribble/html)
-(require rackunit "toolbelt.rkt")
+(require "SQL.rkt")
+(provide pagina-index)
 
 
 ;*******************Funções auxiliares*******************
@@ -55,4 +56,17 @@
       (make-element 'di '[(class . "table-title")] (literal gera-titulos))
       (make-element 'tbody '[(class . "table-hover")] (literal (gera-tabela lst))))))))
 
-(gera-tabela (gera-lista-linhas))
+
+;retorna uma lista de lista com todos os elementos do BD
+(define (gera-lista-linhas)
+  (vectorList->list))
+
+;funcao string para byte
+(define (string-byte str bt)
+  (if(null? str)
+     bt
+     (string-byte (cdr str) (bytes-append bt (make-bytes 1 (char->integer(car str)))))))
+
+; retona a pagina index com a tabela populada com o sql
+(define pagina-index
+  (string-byte(string->list(gera-pagina (gera-lista-linhas))) #""))
