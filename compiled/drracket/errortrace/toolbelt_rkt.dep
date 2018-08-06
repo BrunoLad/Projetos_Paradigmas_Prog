@@ -1,0 +1,1 @@
+("7.0" ("aeea62577a65ae183e3e1388efc100644b4cd5f1" . "e91d5b79995bfead19a6004892405575d0d544b6") #"/home/ufabc/Documentos/muraldaquadra/SQL.rkt" (collects #"errortrace" #"errortrace-key.rkt") (collects #"racket" #"main.rkt") (collects #"racket" #"runtime-config.rkt"))

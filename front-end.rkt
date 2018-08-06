@@ -1,6 +1,7 @@
 #lang racket
 
 (require scribble/html)
+(require rackunit "toolbelt.rkt")
 
 
 ;*******************Funções auxiliares*******************
@@ -53,3 +54,5 @@
      (table
       (make-element 'di '[(class . "table-title")] (literal gera-titulos))
       (make-element 'tbody '[(class . "table-hover")] (literal (gera-tabela lst))))))))
+
+(gera-tabela (gera-lista-linhas))
