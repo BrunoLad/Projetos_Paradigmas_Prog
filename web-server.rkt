@@ -14,6 +14,8 @@
 
 ;Só para upar arquivos
 (serve/servlet render-page
+               #:port 8080
+               #:servlet-path "/muraldaquadra"
                #:extra-files-paths
                (list
                (current-directory)))
