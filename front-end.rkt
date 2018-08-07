@@ -40,15 +40,19 @@
         acc))
   (gera-tabela-aux lst ""))
 
-;(String) Gera a página htlm com dados da tabela
+;(String) Gera a página html com dados da tabela
 (define (gera-pagina lst)
   (xml->string
    (html
     (head
      (make-element 'meta '[(charset . "utf-8")
                            (name . "viewport")
-                           (content . "initial-scale=1.0; maximum-scale=1.0; width=device-width;")] "")
-     (title "Mural da Quadra"))
+                           (content . "initial-scale=1.0; maximum-scale=1.0; width=device-width")] "")
+     (title "Mural da Quadra")
+     (make-element 'link '[(rel "stylesheet")
+                           (type "text/css")
+                           (href "/test.css")] "")
+     )
     (body
      (make-element 'div '[(class . "table-title")]
       (h1 "Mural da Quadra"))
