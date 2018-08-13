@@ -40,19 +40,6 @@
         acc))
   (gera-tabela-aux lst ""))
 
-;forms de exemplo, precisa ser modificado para incluir dados da tabela SQL
-;não precisa do xml->string aqui dentro
-;pois já está sendo utilizado dentro da função gera-pagina
-;senão dá erro e fica o html exposto na página
-(define (gera-forms-page)
-   (make-element 'form '[(action . "/action.rkt")]
-                 (cons (make-element 'input '[(type . "text")
-                                        (name . "firstname")
-                                        (value . "Mickey")] "")
-                 (make-element 'input '[(type . "submit")
-                                        (value . "Submit")] ""))
-                 ))
-
 ;(String) Gera a página html com dados da tabela
 (define (gera-pagina lst)
   (xml->string
@@ -71,8 +58,7 @@
       (h1 "Mural da Quadra"))
      (table
       (make-element 'di '[(class . "table-title")] (literal gera-titulos))
-      (make-element 'tbody '[(class . "table-hover")] (literal (gera-tabela lst))))
-     (gera-forms-page)))))
+      (make-element 'tbody '[(class . "table-hover")] (literal (gera-tabela lst))))))))
 
 
 ;retorna uma lista de lista com todos os elementos do BD
