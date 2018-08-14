@@ -45,13 +45,28 @@
 ;pois já está sendo utilizado dentro da função gera-pagina
 ;senão dá erro e fica o html exposto na página
 (define (gera-forms-page)
-   (make-element 'form '[(action . "/action.rkt")]
+   (make-element 'form '[(action . "/action.rkt")
+                         (method . "post")]
                  (cons (make-element 'input '[(type . "text")
-                                        (name . "firstname")
-                                        (value . "Mickey")] "")
+                                        (name . "esporte")
+                                        (id . "esporte")
+                                        (placeholder . "Insira o esporte a ser praticado")] "")
                  (make-element 'input '[(type . "submit")
                                         (value . "Submit")] ""))
                  ))
+                 
+;div para englobar os links que redirecionam para outras páginas
+(define (links-Pages)
+  (make-element 'div '[(class . "links")] (cons (cadastrar-novo-jogo-page)
+                                                (entrar-em-jogo-existente-page))))
+                                                
+;link para cadastro de novos jogos
+(define (cadastrar-novo-jogo-page)
+  (make-element 'a '[(href . "/novoJogo.rkt")] "Criar novo jogo"))
+
+;link para entrar nos jogos existentes
+(define (entrar-em-jogo-existente-page)
+  (make-element 'a '[(href . "/jogosDisponiveis.rkt")] "Entrar no jogo!"))
 
 ;(String) Gera a página html com dados da tabela
 (define (gera-pagina lst)
@@ -72,7 +87,8 @@
      (table
       (make-element 'di '[(class . "table-title")] (literal gera-titulos))
       (make-element 'tbody '[(class . "table-hover")] (literal (gera-tabela lst))))
-     (gera-forms-page)))))
+     (gera-forms-page)
+     (links-Pages)))))
 
 
 ;retorna uma lista de lista com todos os elementos do BD
