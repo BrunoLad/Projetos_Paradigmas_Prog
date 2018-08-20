@@ -40,20 +40,7 @@
         acc))
   (gera-tabela-aux lst ""))
 
-;forms de exemplo, precisa ser modificado para incluir dados da tabela SQL
-;não precisa do xml->string aqui dentro
-;pois já está sendo utilizado dentro da função gera-pagina
-;senão dá erro e fica o html exposto na página
-(define (gera-forms-page)
-   (make-element 'form '[(action . "/action.rkt")
-                         (method . "post")]
-                 (cons (make-element 'input '[(type . "text")
-                                        (name . "esporte")
-                                        (id . "esporte")
-                                        (placeholder . "Insira o esporte a ser praticado")] "")
-                 (make-element 'input '[(type . "submit")
-                                        (value . "Submit")] ""))
-                 ))
+
                  
 ;div para englobar os links que redirecionam para outras páginas
 (define (links-Pages)
@@ -62,7 +49,7 @@
                                                 
 ;link para cadastro de novos jogos
 (define (cadastrar-novo-jogo-page)
-  (make-element 'a '[(href . "/novoJogo.rkt")] "Criar novo jogo"))
+  (make-element 'a '[(href . "/new-game")] "Criar novo jogo"))
 
 ;link para entrar nos jogos existentes
 (define (entrar-em-jogo-existente-page)
@@ -87,8 +74,7 @@
      (table
       (make-element 'di '[(class . "table-title")] (literal gera-titulos))
       (make-element 'tbody '[(class . "table-hover")] (literal (gera-tabela lst))))
-     (gera-forms-page)
-     (links-Pages)))))
+      (links-Pages)))))
 
 
 ;retorna uma lista de lista com todos os elementos do BD

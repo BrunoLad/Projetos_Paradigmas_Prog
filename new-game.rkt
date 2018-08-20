@@ -2,7 +2,7 @@
 
 (require scribble/html)
 (require "SQL.rkt")
-(provide pagina-index)
+(provide pagina-add)
 
 
 ;*******************Funções auxiliares geradoras de tabela*******************
@@ -45,24 +45,27 @@
 (define (gera-forms)
   (p
    (p
+    
     (table
      (tr
       (th (label "Data"))
-      (th (make-element 'input '[(type . "datetime-local") (name . "data")] "")))
+      (th (make-element 'input '[(type . "text") (id . "data")] "")))
      (tr
       (th (label "Hora"))
-      (th (make-element 'input '[(type . "time") (name . "hora")] "")))
+      (th (make-element 'input '[(type . "text") (id . "hora")] "")))
      (tr
       (th (label "Esporte"))
-      (th (make-element 'input '[(type . "text") (name . "esporte")] "")))
+      (th (make-element 'input '[(type . "text") (id . "esporte")] "")))
      (tr
       (th (label "Local"))
-      (th (make-element 'select '[(name . "Local")]
+      (th (make-element 'select '[(id . "local")]
                         (cons (make-element 'option '[(value . "Santo Andre 1")] "Santo Andre 1")
                               (make-element 'option '[(value . "Santo Andre 2")] "Santo Andre 2")))))
      (tr
-      (th (make-element 'input '[(type . "submit")
-                                 (name . "enviar")] ""))
+      (th  (make-element 'form '[(action . "addesporte")
+                         (method . "post")](make-element 'input '[
+                                (type . "submit")
+                                 (name . "enviar")] "")))
       (th))))))
    
     
@@ -101,5 +104,5 @@
      (string-byte (cdr str) (bytes-append bt (make-bytes 1 (char->integer(car str)))))))
 
 ; retona a pagina index com a tabela populada com o sql
-(define pagina-index
+(define pagina-add
   (string-byte(string->list(gera-pagina (gera-lista-linhas))) #""))

@@ -1,1 +1,1 @@
-("7.0" ("ddad020d4e4934ef718c2b3211c91eb7c479cb3c" . "dea215df1454af01163f0e991518c142bf86547d") (collects #"db" #"main.rkt") (collects #"errortrace" #"errortrace-key.rkt") (collects #"racket" #"main.rkt") (collects #"racket" #"runtime-config.rkt") (collects #"sql" #"main.rkt"))
+("6.12" ("3daae100ad0e04dfe36e04c692ca2156015a9e9b" . "b7c3960d4caab1c121f8e11923ea54970c131291") (collects #"db" #"main.rkt") (collects #"racket" #"main.rkt") (collects #"racket" #"runtime-config.rkt") (collects #"sql" #"main.rkt"))
