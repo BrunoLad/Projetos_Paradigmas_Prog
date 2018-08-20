@@ -2,10 +2,10 @@
 
 (require scribble/html)
 (require "SQL.rkt")
-(provide pagina-index)
+(provide pagina-entrar)
 
 
-;*******************Funções auxiliares*******************
+;*******************Funções auxiliares geradoras de tabela*******************
 
 ;(String) Gera  o código html dos titulos de cada coluna da tabela
 (define (gera-titulos)
@@ -40,7 +40,35 @@
         acc))
   (gera-tabela-aux lst ""))
 
-;(String) Gera a página html com dados da tabela
+;*******************Funções auxiliares geradoras do form*******************
+
+(define (gera-forms)
+   
+ (make-element 'form '[(action . "/entrargame")
+                        (method . "post")]
+               (append(list (make-element 'input '[(type . "text")
+                                      (name . "data")
+                                      (id . "data")
+                                      (placeholder . "insisra a data no formato dd/mm/aaaa")
+                                      ](br)))
+                         (list(make-element 'input '[(type . "text")
+                                      (name . "hora")
+                                      (id . "hora")
+                                      (placeholder . "insisra a hora no formato hh:mm")
+                                      ] (br)))
+                         (list(make-element 'input '[(type . "text")
+                                      (name . "local")
+                                      (id . "local")
+                                      (placeholder . "insisra o local onde sera feito o jogo")
+                                      (br)] (br)))
+                  (list(make-element 'input '[(type . "submit")
+                                         (value . "Submit")] (br))))))
+                  
+   
+    
+
+;*************************************************************
+;(String) Gera a página html com dados da tabela e com formulario
 (define (gera-pagina lst)
   (xml->string
    (html
@@ -51,14 +79,15 @@
      (title "Mural da Quadra")
      (make-element 'link '[(rel "stylesheet")
                            (type "text/css")
-                           (href "/test.css")] "")
+                           (href "/style.css")] "")
      )
     (body
      (make-element 'div '[(class . "table-title")]
       (h1 "Mural da Quadra"))
      (table
       (make-element 'di '[(class . "table-title")] (literal gera-titulos))
-      (make-element 'tbody '[(class . "table-hover")] (literal (gera-tabela lst))))))))
+      (make-element 'tbody '[(class . "table-hover")] (literal (gera-tabela lst))))
+     (gera-forms)))))
 
 
 ;retorna uma lista de lista com todos os elementos do BD
@@ -72,5 +101,5 @@
      (string-byte (cdr str) (bytes-append bt (make-bytes 1 (char->integer(car str)))))))
 
 ; retona a pagina index com a tabela populada com o sql
-(define pagina-index
+(define pagina-entrar
   (string-byte(string->list(gera-pagina (gera-lista-linhas))) #""))

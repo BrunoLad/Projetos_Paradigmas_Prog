@@ -44,8 +44,7 @@
                  
 ;div para englobar os links que redirecionam para outras páginas
 (define (links-Pages)
-  (make-element 'div '[(class . "links")] (cons (cadastrar-novo-jogo-page)
-                                                (entrar-em-jogo-existente-page))))
+  (make-element 'div '[(class . "links")] (cons (cadastrar-novo-jogo-page) (entrar-em-jogo-existente-page))))
                                                 
 ;link para cadastro de novos jogos
 (define (cadastrar-novo-jogo-page)
@@ -53,7 +52,7 @@
 
 ;link para entrar nos jogos existentes
 (define (entrar-em-jogo-existente-page)
-  (make-element 'a '[(href . "/jogosDisponiveis.rkt")] "Entrar no jogo!"))
+  (make-element 'a '[(href . "/entra-game")] "Entrar no jogo!"))
 
 ;(String) Gera a página html com dados da tabela
 (define (gera-pagina lst)
@@ -66,7 +65,7 @@
      (title "Mural da Quadra")
      (make-element 'link '[(rel "stylesheet")
                            (type "text/css")
-                           (href "/test.css")] "")
+                           (href "/style.css")] "")
      )
     (body
      (make-element 'div '[(class . "table-title")]

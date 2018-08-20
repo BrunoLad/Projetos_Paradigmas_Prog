@@ -6,6 +6,7 @@
 (require net/uri-codec)
 (require "SQL.rkt")
 (require "new-game.rkt")
+(require "entrar-game.rkt")
 
 
 ;constroi o codigo html da pagina
@@ -26,6 +27,12 @@
                                    (current-seconds) TEXT/HTML-MIME-TYPE
                                    empty
                                    (λ (op) (write-bytes pagina-add op)))]
+    [(equal? page "entra-game")(response
+                                   200 #"OK"
+                                   (current-seconds) TEXT/HTML-MIME-TYPE
+                                   empty
+                                   (λ (op) (write-bytes pagina-entrar op)))]
+     
      
     [(equal? page "addesporte")
      ; extrai form data:
@@ -44,6 +51,23 @@
       `(html
         (body
          (p "Jogo adicionado com sucesso"))))]
+    
+     [(equal? page "entrargame")
+     ; extrai form data:
+     (define post-data (bytes->string/utf-8 (request-post-data/raw request)))
+     ; converte para alist
+     (define form-data (form-urlencoded->alist post-data))
+     ; define os elementos com os valores dos inputs
+     (define data (cdr (assq 'data form-data)))
+     (define hora (cdr (assq 'hora form-data)))
+     (define local (cdr (assq 'local form-data)))
+     ;adiociona o jgoo na tabela sql
+     (update-tabela-soma-jogador data hora local)
+      ; da resposta positiva para usuario
+     (response/xexpr
+      `(html
+        (body
+         (p "Jogador adicionado com sucesso"))))]
     [else 
      (response/xexpr
       `(html

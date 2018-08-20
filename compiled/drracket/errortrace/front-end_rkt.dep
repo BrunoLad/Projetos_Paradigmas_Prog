@@ -1,1 +1,0 @@
-("6.12" ("9913c1feffe1c6eff5ab093e3926f72f0d41c1cc" . "78a605aede3f3bffb202a8614da3b1263d385e65") #"C:\\Users\\Carol\\Documents\\muraldaquadra\\SQL.rkt" (collects #"racket" #"main.rkt") (collects #"racket" #"runtime-config.rkt") (collects #"scribble" #"html.rkt"))

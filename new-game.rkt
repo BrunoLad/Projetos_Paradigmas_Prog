@@ -43,30 +43,32 @@
 ;*******************Funções auxiliares geradoras do form*******************
 
 (define (gera-forms)
-  (p
-   (p
-    
-    (table
-     (tr
-      (th (label "Data"))
-      (th (make-element 'input '[(type . "text") (id . "data")] "")))
-     (tr
-      (th (label "Hora"))
-      (th (make-element 'input '[(type . "text") (id . "hora")] "")))
-     (tr
-      (th (label "Esporte"))
-      (th (make-element 'input '[(type . "text") (id . "esporte")] "")))
-     (tr
-      (th (label "Local"))
-      (th (make-element 'select '[(id . "local")]
-                        (cons (make-element 'option '[(value . "Santo Andre 1")] "Santo Andre 1")
-                              (make-element 'option '[(value . "Santo Andre 2")] "Santo Andre 2")))))
-     (tr
-      (th  (make-element 'form '[(action . "addesporte")
-                         (method . "post")](make-element 'input '[
-                                (type . "submit")
-                                 (name . "enviar")] "")))
-      (th))))))
+   
+ (make-element 'form '[(action . "/addesporte")
+                        (method . "post")]
+               (append(list(make-element 'input '[(type . "text")
+                                      (name . "esporte")
+                                      (id . "esporte")
+                                      (placeholder . "Insira o esporte a ser praticado")
+                                      ] (br)))
+                       (list (make-element 'input '[(type . "text")
+                                      (name . "data")
+                                      (id . "data")
+                                      (placeholder . "insisra a data no formato dd/mm/aaaa")
+                                      ](br)))
+                         (list(make-element 'input '[(type . "text")
+                                      (name . "hora")
+                                      (id . "hora")
+                                      (placeholder . "insisra a hora no formato hh:mm")
+                                      ] (br)))
+                         (list(make-element 'input '[(type . "text")
+                                      (name . "local")
+                                      (id . "local")
+                                      (placeholder . "insisra o local onde sera feito o jogo")
+                                      (br)] (br)))
+                  (list(make-element 'input '[(type . "submit")
+                                         (value . "Submit")] (br))))))
+                  
    
     
 
@@ -82,7 +84,7 @@
      (title "Mural da Quadra")
      (make-element 'link '[(rel "stylesheet")
                            (type "text/css")
-                           (href "/test.css")] "")
+                           (href "/style.css")] "")
      )
     (body
      (make-element 'div '[(class . "table-title")]
