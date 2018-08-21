@@ -82,7 +82,8 @@
      (response/xexpr
       `(html
         (body
-         (p "Jogo adicionado com sucesso"))))]
+         (p "Jogo adicionado com sucesso")
+         (a ((href "/muraldaquadra")) "Voltar"))))]
     
      [(equal? page "entrargame")
      ; extrai form data:
@@ -99,7 +100,8 @@
      (response/xexpr
       `(html
         (body
-         (p "Jogador adicionado com sucesso"))))]
+         (p "Jogador adicionado com sucesso")
+         (a ((href "/muraldaquadra")) "Voltar"))))]
     [(equal? page "style.css")
      (response
       200 #"OK"
