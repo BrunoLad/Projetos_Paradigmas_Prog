@@ -3,6 +3,7 @@
 (require scribble/html)
 (require "SQL.rkt")
 (provide pagina-index)
+(provide string-byte)
 
 
 ;*******************Funções auxiliares*******************

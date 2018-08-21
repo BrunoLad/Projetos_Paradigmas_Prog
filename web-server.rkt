@@ -1,5 +1,6 @@
 #lang web-server/insta
 
+(require css-expr)
 (require rackunit "front-end.rkt")
 (require web-server/templates)
 (require web-server/servlet-env)
@@ -7,6 +8,37 @@
 (require "SQL.rkt")
 (require "new-game.rkt")
 (require "entrar-game.rkt")
+
+;Funções auxiliares para geração do css
+(define codigo-css
+  (css-expr->css
+   (css-expr
+    [body
+     #:background-color lightblue]
+    [h1
+     #:color green
+     #:text-align center]
+    [table
+     #:font-family Arial
+     #:border-collapse collapse
+     #:width 100%
+     #:border 1px solid black]
+    [tr:nth-child(even) #:background-color \#f2f2f2]
+    [tr:hover
+     #:background-color: \#ddd]
+    [th
+     #:padding-top 12px
+     #:padding-bottom 12px
+     #:text-align left
+     #:background-color \#4CAF50
+     #:color white]
+    [td th
+        #:border 1px solid \#ddd
+        #:padding 8px])))
+
+(define gera-css
+  (string-byte (string->list codigo-css) #""))
+
 
 
 ;constroi o codigo html da pagina
@@ -68,6 +100,12 @@
       `(html
         (body
          (p "Jogador adicionado com sucesso"))))]
+    [(equal? page "style.css")
+     (response
+      200 #"OK"
+      (current-seconds) TEXT/HTML-MIME-TYPE
+      empty
+      (λ (op) (write-bytes gera-css op)))]
     [else 
      (response/xexpr
       `(html
