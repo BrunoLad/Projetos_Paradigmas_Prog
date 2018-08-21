@@ -88,5 +88,5 @@
      (string-byte (cdr str) (bytes-append bt (make-bytes 1 (char->integer(car str)))))))
 
 ; retona a pagina index com a tabela populada com o sql
-(define pagina-index
+(define (pagina-index)
   (string-byte(string->list(gera-pagina (gera-lista-linhas))) #""))
