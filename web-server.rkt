@@ -53,7 +53,7 @@
                                    200 #"OK"
                                    (current-seconds) TEXT/HTML-MIME-TYPE
                                    empty
-                                   (λ (op) (write-bytes pagina-index op)))]
+                                   (λ (op) (write-bytes (pagina-index) op)))]
     [(equal? page "new-game")(response
                                    200 #"OK"
                                    (current-seconds) TEXT/HTML-MIME-TYPE
