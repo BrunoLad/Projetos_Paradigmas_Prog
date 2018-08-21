@@ -58,12 +58,12 @@
                                    200 #"OK"
                                    (current-seconds) TEXT/HTML-MIME-TYPE
                                    empty
-                                   (λ (op) (write-bytes pagina-add op)))]
+                                   (λ (op) (write-bytes (pagina-add) op)))]
     [(equal? page "entra-game")(response
                                    200 #"OK"
                                    (current-seconds) TEXT/HTML-MIME-TYPE
                                    empty
-                                   (λ (op) (write-bytes pagina-entrar op)))]
+                                   (λ (op) (write-bytes (pagina-entrar) op)))]
      
      
     [(equal? page "addesporte")
